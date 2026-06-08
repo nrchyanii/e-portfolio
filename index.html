@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Portfolio PPG - Profesional & Reflektif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Sage Green (#5B7065), Dusty Rose (#D2A3A9), Cream (#FAF7F5), Dark Charcoal (#2A332E) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FAF7F5;
+            color: #2A332E;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Lora', serif;
+        }
+
+        .sage-bg { background-color: #5B7065; }
+        .pink-bg { background-color: #D2A3A9; }
+        .sage-text { color: #5B7065; }
+        .pink-text { color: #D2A3A9; }
+        .cream-bg { background-color: #FAF7F5; }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #D2A3A9;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        .tab-active {
+            border-bottom: 4px solid #5B7065;
+            color: #5B7065;
+            font-weight: 700;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 sage-bg rounded-full"></div>
+                <span class="font-serif font-bold text-xl tracking-tight">E-Portfolio <span class="pink-text">PPG</span></span>
+            </div>
+            <div class="hidden md:flex space-x-8 font-medium text-sm uppercase tracking-widest">
+                <a href="#profil" class="nav-link">Profil</a>
+                <a href="#artefak" class="nav-link">Artefak</a>
+                <a href="#penilaian" class="nav-link">Penilaian</a>
+                <a href="#visi" class="nav-link">Visi</a>
+            </div>
+            <button class="md:hidden text-2xl" id="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center transition-all duration-300 opacity-0">
+        <div class="bg-white rounded-3xl p-8 w-4/5 max-w-sm text-center shadow-2xl relative transform scale-95 transition-transform duration-300" id="mobile-menu-container">
+            <button id="close-menu-btn" class="absolute top-4 right-4 text-2xl text-gray-500 hover:text-gray-800">✕</button>
+            <h3 class="font-serif font-bold text-xl mb-6 text-[#5B7065]">Navigasi Menu</h3>
+            <div class="flex flex-col space-y-4 font-semibold text-gray-700">
+                <a href="#profil" class="mobile-link py-2 hover:text-[#D2A3A9] transition">Profil</a>
+                <a href="#artefak" class="mobile-link py-2 hover:text-[#D2A3A9] transition">Artefak</a>
+                <a href="#penilaian" class="mobile-link py-2 hover:text-[#D2A3A9] transition">Penilaian</a>
+                <a href="#visi" class="mobile-link py-2 hover:text-[#D2A3A9] transition">Visi</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section / Profil -->
+    <section id="profil" class="pt-32 pb-10 px-6 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="fade-in space-y-6">
+                <div>
+                    <span class="pink-text font-bold tracking-widest uppercase text-xs">Profil Mahasiswa PPG</span>
+                    <h1 class="text-4xl md:text-5xl font-bold mt-2">Menyiarkan Harapan, <span class="sage-text italic">Merawat Ingatan.</span></h1>
+                </div>
+                
+                <!-- Box Cerita Profil Diri Khusus -->
+                <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-gray-100 space-y-4">
+                    <h3 class="text-xl font-serif font-bold text-gray-800 flex items-center">
+                        <span class="w-1.5 h-6 pink-bg rounded-full mr-3 inline-block"></span>
+                        Kisah & Perjalanan Hidup
+                    </h3>
+                    <p class="text-sm leading-relaxed text-gray-600 space-y-4" id="profil-intro">
+                        Lahir di Makassar pada <strong>27 Maret 2002</strong>, saya tumbuh dan berkembang di lingkungan keluarga pendidik yang hangat. Kedua orang tua saya adalah guru SMK, dan kakak saya mengabdi sebagai dosen di salah satu kampus di Makassar. Sebagai anak bungsu dari tiga bersaudara dengan selisih usia yang cukup jauh, saya beruntung memiliki ruang istimewa untuk mengamati, memilah, dan menyerap kearifan hidup—belajar tentang hal baik yang patut saya teladani maupun hal yang tidak perlu saya ikuti.
+                        <br><br>
+                        Meskipun telah lama berdomisili di <strong>Kabupaten Gowa</strong>, sebagian besar aktivitas, studi, hingga mimpi saya berpusat di Makassar. Perjalanan lintas kabupaten yang menempuh jarak dan waktu setiap harinya kini telah menjadi bagian dari ritme hidup saya. 
+                        <br><br>
+                        Sebagai lulusan <strong>Komunikasi Penyiaran Islam (S.Sos)</strong> dari <strong>UIN Alauddin Makassar (2020-2024)</strong> dan alumni <strong>MAN 2 Kota Makassar (2020)</strong>, kini saya melanjutkan perjuangan di program <strong>PPG Calon Guru Gelombang 1 Tahun 2026</strong> di <strong>LPTK Universitas Negeri Makassar (UNM)</strong>. Tergabung di kelas <strong>Vokasi 001</strong> dengan bidang studi <strong>Broadcasting dan Perfilman</strong>, saya merasa berada di tempat yang paling tepat untuk mengawinkan profesionalisme penyiaran yang saya miliki dengan kompetensi pedagogis modern.
+                    </p>
+
+                    <!-- Galeri Foto Mini Cerita Diri (1-2 Foto Saja, Tidak Terlalu Luas) -->
+                    <div class="pt-4 border-t border-gray-100">
+                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Dokumentasi Aktivitas & Keseharian</h4>
+                        <div class="grid grid-cols-2 gap-4 max-w-sm">
+                            <div class="relative group rounded-xl overflow-hidden aspect-video bg-gray-100 border border-gray-200 shadow-sm">
+                                <img src="https://placehold.co/300x200/5B7065/FAF7F5?text=LPTK+UNM" 
+                                     alt="Aktivitas di LPTK UNM" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                <span class="absolute bottom-1.5 left-1.5 text-[8px] bg-black/60 text-white px-1.5 py-0.5 rounded">LPTK UNM</span>
+                            </div>
+                            <div class="relative group rounded-xl overflow-hidden aspect-video bg-gray-100 border border-gray-200 shadow-sm">
+                                <img src="https://placehold.co/300x200/D2A3A9/FAF7F5?text=Mitra+PPL" 
+                                     alt="Aktivitas di SMKN 2" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                <span class="absolute bottom-1.5 left-1.5 text-[8px] bg-black/60 text-white px-1.5 py-0.5 rounded">Praktik Mengajar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-4">
+                    <a href="#artefak" class="sage-bg text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition shadow-lg text-sm">Lihat Artefak</a>
+                    <a href="#visi" class="border border-[#5B7065] sage-text px-8 py-3 rounded-full font-semibold hover:bg-sage-50 transition text-sm">Visi & Karakter</a>
+                </div>
+            </div>
+            
+            <div class="space-y-8 fade-in" style="animation-delay: 0.2s;">
+                <!-- Card Foto Utama -->
+                <div class="relative">
+                    <div class="absolute inset-0 -z-10 bg-[#5B7065] rounded-3xl rotate-3 opacity-20 transform translate-x-2 translate-y-2"></div>
+                    
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-2xl border-4 border-white flex flex-col items-center">
+                        <div class="relative w-4/5 max-w-[260px] aspect-[3/4] mt-6 rounded-2xl overflow-hidden bg-gray-100 shadow-md border-2 border-gray-100">
+                            <img src="7000436901-TRIPUTRI NURCAHYANI-FOTO.jpg" 
+                                 alt="Triputri Nurcahyani, S.Sos" 
+                                 class="w-full h-full object-cover object-center transition duration-500 hover:scale-105 filter brightness-[1.08] contrast-[1.03] saturate-[1.05]"
+                                 onerror="this.src='https://placehold.co/400x533/5B7065/FAF7F5?text=Triputri+Nurcahyani'">
+                            
+                            <div class="absolute bottom-3 left-3 right-3 flex flex-wrap gap-2">
+                                <span class="px-2.5 py-1 bg-white/95 backdrop-blur-sm text-[#5B7065] text-[9px] font-bold rounded-full shadow-sm flex items-center">
+                                    <span class="mr-1">🎥</span> Broadcasting & Perfilman
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 text-center w-full">
+                            <h3 class="font-serif font-bold text-2xl text-gray-800" id="nama-mahasiswa">Triputri Nurcahyani, S.Sos</h3>
+                            <p class="text-gray-500 text-sm font-semibold mt-1" id="nim-mahasiswa">Mahasiswa PPG Calon Guru Gel. 1 - 2026</p>
+                            <p class="text-gray-400 text-xs mt-1">LPTK: Universitas Negeri Makassar</p>
+                            
+                            <div class="mt-4 pt-4 border-t border-gray-100 flex justify-center space-x-6 text-xs text-gray-500 font-medium">
+                                <div>
+                                    <span class="block text-lg font-bold text-[#5B7065]">001</span>
+                                    Kelas Vokasi
+                                </div>
+                                <div class="border-l border-gray-200 pl-6">
+                                    <span class="block text-lg font-bold text-[#D2A3A9]">2026</span>
+                                    Gelombang 1
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kartu Keseimbangan Visual: Linimasa & Fokus Kompetensi -->
+                <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 space-y-6">
+                    <div>
+                        <h4 class="font-serif font-bold text-lg text-gray-800 flex items-center mb-5">
+                            <span class="w-2.5 h-2.5 sage-bg rounded-full mr-2.5"></span>
+                            Jejak Studi & Kompetensi Vokasi
+                        </h4>
+                        
+                        <!-- Timeline Interaktif -->
+                        <div class="relative pl-6 border-l-2 border-gray-100 space-y-5">
+                            <!-- PPG UNM -->
+                            <div class="relative">
+                                <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-[#5B7065] border-4 border-white shadow"></div>
+                                <h5 class="font-bold text-xs sm:text-sm text-gray-800">PPG Calon Guru Vokasi</h5>
+                                <p class="text-xs text-gray-500">LPTK Universitas Negeri Makassar (2026 - Sekarang)</p>
+                            </div>
+                            
+                            <!-- UIN Alauddin -->
+                            <div class="relative">
+                                <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-[#D2A3A9] border-4 border-white shadow"></div>
+                                <h5 class="font-bold text-xs sm:text-sm text-gray-800">S1 Komunikasi Penyiaran Islam (S.Sos)</h5>
+                                <p class="text-xs text-gray-500">UIN Alauddin Makassar (2020 - 2024)</p>
+                            </div>
+                            
+                            <!-- MAN 2 -->
+                            <div class="relative">
+                                <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-gray-300 border-4 border-white shadow"></div>
+                                <h5 class="font-bold text-xs sm:text-sm text-gray-800">MAN 2 Kota Makassar</h5>
+                                <p class="text-xs text-gray-500">Alumni (2017 - 2020)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kategori Keahlian / Tags (Telah Dihapus: Kamera & Tata Cahaya) -->
+                    <div class="pt-5 border-t border-gray-100">
+                        <h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Fokus Keahlian Utama</h5>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-green-50 text-[#5B7065] text-xs font-semibold rounded-lg border border-green-100">Produksi Siaran TV</span>
+                            <span class="px-3 py-1 bg-pink-50 text-[#D2A3A9] text-xs font-semibold rounded-lg border border-pink-100">Penyutradaraan</span>
+                            <span class="px-3 py-1 bg-green-50 text-[#5B7065] text-xs font-semibold rounded-lg border border-green-100">Penulisan Naskah</span>
+                            <span class="px-3 py-1 bg-pink-50 text-[#D2A3A9] text-xs font-semibold rounded-lg border border-pink-100">Pedagogi Vokasi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: Tanah Kelahiran & Jejak Sejarah Gowa-Makassar (Penuh) -->
+        <div class="mt-16 w-full fade-in" style="animation-delay: 0.3s;">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100">
+                <div class="grid lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Sisi Kiri: Narasi Sejarah (5 Kolom) -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="inline-flex items-center space-x-2 bg-pink-50 text-[#D2A3A9] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                            <span>🏛️</span>
+                            <span>Tanah Kelahiran & Warisan Nilai</span>
+                        </div>
+                        <h3 class="text-3xl font-serif font-bold text-gray-800 leading-tight">
+                            Jejak Sejarah Gowa & Makassar: <br>
+                            <span class="sage-text italic">Saksi Bisu Nilai Kehidupan</span>
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed text-sm" id="cerita-daerah">
+                            Berdiri di antara batas Kabupaten Gowa dan Kota Makassar, hidup saya diwarnai oleh spirit kepahlawanan <strong>Sultan Hasanuddin</strong> yang gigih, berani, serta tidak goyah dalam prinsip kebenaran. Di sisi lain, kemegahan istana kayu <strong>Balla Lompoa</strong> berdiri tegak melambangkan penjagaan memori luhur Kerajaan Gowa agar tak lekang oleh zaman. 
+                            <br><br>
+                            Bagi seorang calon pendidik <i>Broadcasting & Perfilman</i>, sejarah bukanlah sekadar benda mati yang berdebu. Sejarah adalah rekaman kehidupan yang wajib kita rawat. Semangat juang kepahlawanan dan keagungan tradisi inilah yang melandasi komitmen saya untuk <strong>"merawat ingatan"</strong> melalui lensa kamera, <strong>"menyebarkan"</strong> nilai-nilai kebaikan lewat media siar modern, dan <strong>"mengajar"</strong> dengan kehangatan hati demi membentuk masa depan generasi bangsa yang unggul.
+                        </p>
+                    </div>
+
+                    <!-- Sisi Kanan: Visualisasi Ilustratif Balla Lompoa & Bissoloro (7 Kolom) -->
+                    <div class="lg:col-span-7 grid sm:grid-cols-2 gap-6 w-full">
+                        
+                        <!-- Panel Visual 1: Balla Lompoa Gowa -->
+                        <div class="bg-[#FAF7F5] rounded-2xl p-5 border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                            <div class="w-full aspect-[4/3] bg-gradient-to-br from-[#5B7065]/10 to-[#5B7065]/20 rounded-xl mb-4 overflow-hidden flex items-center justify-center relative">
+                                <!-- Ilustrasi SVG Balla Lompoa -->
+                                <svg class="w-2/3 h-2/3 text-[#5B7065]" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="20" y="55" width="4" height="20" fill="currentColor"/>
+                                    <rect x="35" y="55" width="4" height="20" fill="currentColor"/>
+                                    <rect x="50" y="55" width="4" height="20" fill="currentColor"/>
+                                    <rect x="65" y="55" width="4" height="20" fill="currentColor"/>
+                                    <rect x="80" y="55" width="4" height="20" fill="currentColor"/>
+                                    <rect x="10" y="74" width="80" height="2" fill="currentColor" opacity="0.4"/>
+                                    <rect x="15" y="30" width="70" height="25" rx="1" fill="currentColor" fill-opacity="0.2" stroke="currentColor" stroke-width="2"/>
+                                    <rect x="25" y="37" width="8" height="8" rx="1" fill="currentColor"/>
+                                    <rect x="45" y="37" width="8" height="8" rx="1" fill="currentColor"/>
+                                    <rect x="65" y="37" width="8" height="8" rx="1" fill="currentColor"/>
+                                    <line x1="12" y1="57" x2="25" y2="35" stroke="currentColor" stroke-width="2"/>
+                                    <line x1="8" y1="55" x2="21" y2="33" stroke="currentColor" stroke-width="2"/>
+                                    <line x1="10" y1="51" x2="14" y2="53" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="13" y1="46" x2="17" y2="48" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="16" y1="41" x2="20" y2="43" stroke="currentColor" stroke-width="1.5"/>
+                                    <polygon points="50,5 10,31 90,31" fill="currentColor" fill-opacity="0.8"/>
+                                    <polygon points="50,11 20,31 80,31" fill="currentColor"/>
+                                    <polygon points="50,17 30,31 70,31" fill="#FAF7F5"/>
+                                </svg>
+                                <span class="absolute top-3 right-3 text-[10px] bg-white/80 px-2 py-0.5 rounded-full font-bold text-gray-500 uppercase">Warisan Budaya</span>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-bold text-[#5B7065] text-base">Istana Balla Lompoa</h4>
+                                <p class="text-xs text-gray-500 mt-1">Simbol keteguhan identitas kultural dan saksi kejayaan peradaban Kerajaan Gowa.</p>
+                            </div>
+                        </div>
+
+                        <!-- Panel Visual 2: Keindahan Bissoloro, Gowa -->
+                        <div class="bg-[#FAF7F5] rounded-2xl p-5 border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                            <div class="w-full aspect-[4/3] bg-gradient-to-br from-[#D2A3A9]/10 to-[#D2A3A9]/20 rounded-xl mb-4 overflow-hidden flex items-center justify-center relative">
+                                <!-- Ilustrasi SVG Pemandangan Hutan Pinus Bissoloro -->
+                                <svg class="w-2/3 h-2/3 text-[#D2A3A9]" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="50" cy="45" r="15" fill="#FAF7F5" opacity="0.9"/>
+                                    <circle cx="50" cy="45" r="12" fill="currentColor" fill-opacity="0.3"/>
+                                    <polygon points="10,65 45,35 80,65" fill="currentColor" fill-opacity="0.2"/>
+                                    <polygon points="35,65 65,40 100,65" fill="currentColor" fill-opacity="0.3"/>
+                                    <polygon points="20,65 15,45 25,45" fill="currentColor"/>
+                                    <polygon points="20,50 17,35 23,35" fill="currentColor"/>
+                                    <line x1="20" y1="65" x2="20" y2="70" stroke="currentColor" stroke-width="2"/>
+                                    <polygon points="35,65 28,40 42,40" fill="currentColor" opacity="0.8"/>
+                                    <polygon points="35,45 30,25 40,25" fill="currentColor" opacity="0.8"/>
+                                    <line x1="35" y1="65" x2="35" y2="72" stroke="currentColor" stroke-width="2.5"/>
+                                    <polygon points="75,65 70,47 80,47" fill="currentColor"/>
+                                    <polygon points="75,51 72,38 78,38" fill="currentColor"/>
+                                    <line x1="75" y1="65" x2="75" y2="70" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M 5 65 Q 50 60 95 65" stroke="currentColor" stroke-width="3" fill="none"/>
+                                    <path d="M 5 65 L 95 65 L 95 75 L 5 75 Z" fill="currentColor" fill-opacity="0.1"/>
+                                </svg>
+                                <span class="absolute top-3 right-3 text-[10px] bg-white/80 px-2 py-0.5 rounded-full font-bold text-gray-500 uppercase">Pemandangan Alam</span>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-bold text-[#D2A3A9] text-base">Hutan Pinus Bissoloro</h4>
+                                <p class="text-xs text-gray-500 mt-1">Keheningan pinus dataran tinggi Gowa yang mengajarkan kedamaian dan ketenangan berpikir.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-20 text-center max-w-3xl mx-auto fade-in">
+            <h3 class="font-serif italic text-2xl text-gray-700">"Mendidik adalah seni merawat ingatan; bagaikan lensa kamera yang menangkap kebenaran sejarah dan frekuensi penyiaran yang menyebarkan kebaikan, saya mengajar untuk mengabadikan nilai luhur masa lalu dan menyiarkan harapan masa depan."</h3>
+            <p class="mt-4 font-bold text-[#D2A3A9]">— Triputri Nurcahyani, S.Sos</p>
+        </div>
+    </section>
+
+    <!-- Artefak Pembelajaran -->
+    <section id="artefak" class="py-20 sage-bg text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Artefak Pembelajaran</h2>
+                <p class="text-sage-100 opacity-80">Analisis mendalam dan bukti aksi nyata dari setiap siklus PPL Terbimbing.</p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="flex justify-center mb-12 space-x-4">
+                <button onclick="switchSiklus(1)" id="tab-1" class="px-6 py-2 rounded-full border border-white/30 hover:bg-white/10 transition tab-active-btn">Siklus 1</button>
+                <button onclick="switchSiklus(2)" id="tab-2" class="px-6 py-2 rounded-full border border-white/30 hover:bg-white/10 transition">Siklus 2</button>
+                <button onclick="switchSiklus(3)" id="tab-3" class="px-6 py-2 rounded-full border border-white/30 hover:bg-white/10 transition">Siklus 3</button>
+            </div>
+
+            <!-- Box Analisis Artefak Utama -->
+            <div id="siklus-content" class="bg-white text-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl transition-all duration-500">
+                <div class="grid lg:grid-cols-12 gap-12">
+                    <!-- Sisi Kiri: Analisis Artefak Teoretis & Deskripsi (7 Kolom) -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-block px-4 py-1 pink-bg text-white rounded-full text-xs font-bold uppercase tracking-tighter">Analisis Artefak</div>
+                        <h3 id="siklus-title" class="text-3xl font-bold mb-4 sage-text">Memuat Judul...</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- Konteks & Tujuan -->
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                                    <h4 class="font-bold text-sm text-gray-800 flex items-center mb-1"><span class="w-1.5 h-4 pink-bg rounded-full mr-2"></span> Konteks</h4>
+                                    <p id="siklus-konteks" class="text-gray-600 text-xs leading-relaxed">Loading...</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                                    <h4 class="font-bold text-sm text-gray-800 flex items-center mb-1"><span class="w-1.5 h-4 pink-bg rounded-full mr-2"></span> Tujuan</h4>
+                                    <p id="siklus-tujuan" class="text-gray-600 text-xs leading-relaxed">Loading...</p>
+                                </div>
+                            </div>
+
+                            <!-- Kelebihan & Kekurangan -->
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-green-50 p-4 rounded-2xl border border-green-100">
+                                    <h4 class="text-green-700 font-bold text-xs uppercase mb-2">Kelebihan</h4>
+                                    <p id="siklus-kelebihan" class="text-xs text-green-800 leading-relaxed">Loading...</p>
+                                </div>
+                                <div class="bg-red-50 p-4 rounded-2xl border border-red-100">
+                                    <h4 class="text-red-700 font-bold text-xs uppercase mb-2">Kekurangan</h4>
+                                    <p id="siklus-kekurangan" class="text-xs text-red-800 leading-relaxed">Loading...</p>
+                                </div>
+                            </div>
+
+                            <!-- Poin Refleksi Berdasarkan 4 Aspek (a, b, c, d) -->
+                            <div class="pt-6 border-t border-gray-100 space-y-4">
+                                <h4 class="font-serif font-bold text-lg text-gray-800">Refleksi Kritis Penyusunan & Penerapan Produk</h4>
+                                
+                                <div class="space-y-3 text-xs text-gray-600">
+                                    <!-- Aspek A: Kendala -->
+                                    <div class="bg-amber-50/50 p-3.5 rounded-xl border border-amber-100">
+                                        <h5 class="font-bold text-amber-800 mb-1">a. Kendala Proses Penyusunan Produk Pembelajaran:</h5>
+                                        <p id="refleksi-kendala" class="leading-relaxed"></p>
+                                    </div>
+
+                                    <!-- Aspek B: Teori Pedagogi -->
+                                    <div class="bg-blue-50/50 p-3.5 rounded-xl border border-blue-100">
+                                        <h5 class="font-bold text-blue-800 mb-1">b. Teori atau Konsep Pedagogi yang Diadopsi:</h5>
+                                        <p id="refleksi-teori" class="leading-relaxed italic"></p>
+                                    </div>
+
+                                    <!-- Aspek C: Faktor Keberhasilan -->
+                                    <div class="bg-emerald-50/50 p-3.5 rounded-xl border border-emerald-100">
+                                        <h5 class="font-bold text-emerald-800 mb-1">c. Faktor Keberhasilan Penerapan Produk Pembelajaran:</h5>
+                                        <p id="refleksi-keberhasilan" class="leading-relaxed"></p>
+                                    </div>
+
+                                    <!-- Aspek D: Perubahan Komponen / Profiling -->
+                                    <div class="bg-purple-50/50 p-3.5 rounded-xl border border-purple-100">
+                                        <h5 class="font-bold text-purple-800 mb-1">d. Perubahan Komponen yang Memungkinkan untuk Kelas Berbeda:</h5>
+                                        <p id="refleksi-perubahan" class="leading-relaxed"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sisi Kanan: Ruang Bukti Fisik / Grid File Artefak (5 Kolom) -->
+                    <div class="lg:col-span-5 flex flex-col justify-start">
+                        <h4 class="font-bold text-sm text-gray-400 uppercase tracking-widest mb-4">File Bukti & Berkas Pendukung</h4>
+                        
+                        <div id="artefak-cards-grid" class="grid sm:grid-cols-2 lg:grid-cols-1 gap-4">
+                            <!-- Diisi secara dinamis oleh JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lembar Penilaian GP & DPL -->
+    <section id="penilaian" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">Lembar Penilaian <span class="pink-text">(L7 & L8)</span></h2>
+                    <p class="text-gray-600 mb-8">Data berikut menunjukkan progres perkembangan kompetensi saya dari penilaian Guru Pamong (GP) dan Dosen Pembimbing Lapangan (DPL) selama 3 siklus praktik.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 p-6 rounded-2xl flex items-start space-x-4">
+                            <div class="w-12 h-12 sage-bg rounded-xl flex-shrink-0 flex items-center justify-center text-white font-bold">L7</div>
+                            <div>
+                                <h4 class="font-bold">Penilaian Perangkat Pembelajaran (L7)</h4>
+                                <p class="text-sm text-gray-500">Evaluasi menyeluruh penyusunan perangkat pembelajaran (RPP/Modul Ajar) berbasis HOTS, TPACK, serta diferensiasi konten dan aktivitas.</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-2xl flex items-start space-x-4">
+                            <div class="w-12 h-12 pink-bg rounded-xl flex-shrink-0 flex items-center justify-center text-white font-bold">L8</div>
+                            <div>
+                                <h4 class="font-bold">Penilaian Praktik Mengajar (L8)</h4>
+                                <p class="text-sm text-gray-500">Evaluasi langsung di kelas terkait metodologi penyampaian materi, pemantauan keaktifan siswa, penguasaan kelas, dan penutupan pembelajaran reflektif.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 p-6 border border-dashed border-[#D2A3A9] rounded-2xl">
+                        <h4 class="font-bold sage-text mb-3 flex items-center">
+                            <span class="w-2 h-4 pink-bg rounded-full mr-2"></span>
+                            Refleksi & Catatan Evaluasi Pembimbing
+                        </h4>
+                        <div class="space-y-3 text-xs text-gray-600">
+                            <div class="p-3 bg-green-50/50 rounded-xl border border-green-100/70">
+                                <span class="font-bold text-[#5B7065] block mb-1">✍️ Catatan Guru Pamong (GP):</span>
+                                <p class="italic">"Dalam merancang perangkat, pastikan untuk selalu presisi dalam menyesuaikan sintaks langkah-langkah pembelajaran dengan metode pembelajaran yang dipilih agar alur instruksional berjalan runtut."</p>
+                            </div>
+                            <div class="p-3 bg-pink-50/50 rounded-xl border border-pink-100/70">
+                                <span class="font-bold text-[#D2A3A9] block mb-1">🗣️ Catatan Dosen Pembimbing Lapangan (DPL):</span>
+                                <p class="italic">"Dalam pelaksanaan praktik mengajar, mahasiswa perlu berlatih untuk lebih menguasai lagi suasana kelas, mempertahankan fokus siswa, serta sigap merespons dinamika kelas yang tidak terduga."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+                    <h4 class="text-center font-bold mb-6 text-gray-400 uppercase text-xs tracking-widest">Tren Perkembangan Nilai GP & DPL</h4>
+                    <div class="chart-container">
+                        <canvas id="scoreChart"></canvas>
+                    </div>
+                    <div class="mt-8 grid grid-cols-3 gap-2 text-center text-[10px] font-bold text-gray-400">
+                        <div>SIKLUS 1<br><span class="text-lg text-gray-700">78%</span></div>
+                        <div>SIKLUS 2<br><span class="text-lg text-gray-700">85%</span></div>
+                        <div>SIKLUS 3<br><span class="text-lg text-gray-700">92%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Model Guru Masa Depan -->
+    <section id="visi" class="py-20 pink-bg text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 font-serif">Model Guru Masa Depan</h2>
+                <div class="w-24 h-1 bg-white mx-auto opacity-50"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Misi -->
+                <div class="bg-white/10 backdrop-blur-lg p-8 rounded-3xl border border-white/20 hover:bg-white/20 transition group">
+                    <div class="text-4xl mb-6 group-hover:scale-110 transition duration-300">🎯</div>
+                    <h3 class="text-2xl font-bold mb-4 font-serif">Misi Pribadi</h3>
+                    <ul class="space-y-3 text-sm text-white/80">
+                        <li class="flex items-start"><span class="mr-2">▹</span> Menciptakan ekosistem belajar yang aman dan berpihak pada anak.</li>
+                        <li class="flex items-start"><span class="mr-2">▹</span> Menjadi praktisi reflektif melalui evaluasi diri berkelanjutan.</li>
+                        <li class="flex items-start"><span class="mr-2">▹</span> Berkolaborasi dengan komunitas praktisi industri untuk inovasi.</li>
+                        <li class="flex items-start"><span class="mr-2">▹</span> Terus membuka diri untuk menerima pengetahuan baik secara profesional dan pedagogik.</li>
+                    </ul>
+                </div>
+
+                <!-- Kompetensi -->
+                <div class="bg-white p-8 rounded-3xl shadow-2xl scale-105 relative z-10 text-gray-800">
+                    <div class="text-4xl mb-6">🚀</div>
+                    <h3 class="text-2xl font-bold mb-4 font-serif sage-text">Kompetensi Target</h3>
+                    <div class="chart-container !h-[200px] mb-4">
+                        <canvas id="competencyChart"></canvas>
+                    </div>
+                    <div class="space-y-2 text-xs font-semibold text-gray-500">
+                        <p class="flex justify-between"><span>Pedagogik Unggul</span> <span>Target 90%</span></p>
+                        <p class="flex justify-between"><span>Profesional Adaptif</span> <span>Target 95%</span></p>
+                    </div>
+                </div>
+
+                <!-- Karakter -->
+                <div class="bg-white/10 backdrop-blur-lg p-8 rounded-3xl border border-white/20 hover:bg-white/20 transition group">
+                    <div class="text-4xl mb-6 group-hover:scale-110 transition duration-300">✨</div>
+                    <h3 class="text-2xl font-bold mb-4 font-serif">Karakter Guru</h3>
+                    <div class="space-y-4">
+                        <!-- Empati Profesional -->
+                        <div class="bg-white/10 p-3.5 rounded-lg border border-white/10">
+                            <h4 class="font-bold text-sm">Empati Profesional</h4>
+                            <p class="text-[10px] opacity-80 leading-relaxed mt-1">Memahami karakteristik, kesiapan, dan potensi belajar setiap murid secara holistik.</p>
+                        </div>
+                        <!-- Reflektif & Terbuka -->
+                        <div class="bg-white/10 p-3.5 rounded-lg border border-white/10">
+                            <h4 class="font-bold text-sm">Reflektif & Terbuka</h4>
+                            <p class="text-[10px] opacity-80 leading-relaxed mt-1">Siap menerima umpan balik kritis dan mengevaluasi kinerja mengajar untuk perbaikan.</p>
+                        </div>
+                        <!-- Adaptif -->
+                        <div class="bg-white/10 p-3.5 rounded-lg border border-white/10">
+                            <h4 class="font-bold text-sm">Adaptif & Lincah</h4>
+                            <p class="text-[10px] opacity-80 leading-relaxed mt-1">Adaptif, siap beradaptasi sesuai dengan perkembangan zaman dan dinamika lingkungan kelas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-white text-center border-t border-gray-100">
+        <p class="text-gray-400 text-sm">E-Portfolio 1 PPG &copy; 2026 | Triputri Nurcahyani, S.Sos | Universitas Negeri Makassar</p>
+    </footer>
+
+    <script>
+        // Data Artefak Terintegrasi PPL Terbimbing
+        const siklusData = {
+            1: {
+                title: "Siklus 1: Kompetensi Kerja Dasar dalam Industri Broadcasting",
+                konteks: "Mengajar di kelas XI TKJ SMKN 2 Makassar dengan karakteristik murid yang dominan kinestetik-visual. Dilaksanakan pada Mata Kuliah Pilihan (MPL) yang dikhususkan pada kelas XI.",
+                tujuan: "Memfasilitasi murid untuk Menganalisis dunia kerja, kecakapan kerja dasar (basic job skills) and K3 (Keselamatan dan Kesehatan Kerja) dalam industri penyiaran.",
+                kelebihan: "Siswa kinestetik-visual sangat antusias saat praktik langsung simulasi keselamatan kerja, serta penyampaian materi terbantu melalui pemberian materi melalui Slide PPT yang tidak terlalu menunjukkan teks.",
+                kekurangan: "Manajemen waktu pada fase presentasi kelompok masih perlu diperbaiki, agar pemberian materi tidak terkesan presentasi masalah saja.",
+                
+                // Analisis Artefak (4 Aspek yang Direfleksikan secara Mendalam)
+                kendala: "Kendala yang terjadi secara keseluruhan adalah dalam penyusunan RPP, saya dan rekan se-bidang studi menyusun dari awal secara keseluruhan untuk setiap elemen yang diberikan oleh Guru pamong. Kami kesulitan dalam menentukan Tujuan Pembelajaran, menentukan materi pembelajaran, dan Alur Tujuan Pembelajaran, karena sesungguhnya Bidang Studi kami tidak ada di Sekolah yang mitra PPLT ini.",
+                teori: "Teori dan konsep yang saya gunakan cenderung pada Konstruktivisme ke Sosial. Karena Metode pembelajaran yang saya gunakan tergantung pada aktivitas pembelajaran berupa PBL (Problem Based Learning) atau PjBL (Project Based Learning).",
+                keberhasilan: "Faktor keberhasilan penerapan produk pembelajaran sepenuhnya berpacu pada pencapaian murid atas TP dari setiap RPP. Oleh karena itu, Pembuatan RPP yang Teratur secara aktivitas mampu membawa guru memberikan materi yang menyenangkan di kelas dan menciptakan rasa aman di kelas, sehingga murid bisa mencapai Tujuan dari setiap pembelajaran melalui asesmen formatif yang ditinjau.",
+                perubahan: "Perubahan yang signifikan hanya pada aktivitas pembelajaran yang berdasar pada Metode pembelajaran yang akan digunakan berangkat dari gaya belajar murid yang berbeda-beda pada setiap kelas. Cara menilai gaya belajar murid, budaya murid di dalam kelas secara individu memerlukan profiling di setiap kelas yang akan diajarkan.",
+                
+                // Bukti Fisik yang Ditampilkan (Siklus 1 HANYA memiliki 3 berkas karena "Hasil Kerja Siswa" dihilangkan)
+                files: [
+                    { type: "📄", title: "Modul Ajar / RPP", desc: "Perangkat RPP/Modul Ajar Siklus 1 yang memuat pemetaan K3 Vokasi." },
+                    { type: "📸", title: "Dokumentasi Pembelajaran", desc: "Klik untuk melihat foto/gambar dokumentasi jalannya praktik simulasi K3.", hasImage: true, placeholder: "https://placehold.co/400x250/5B7065/FAF7F5?text=Dokumentasi+K3+Siklus1" },
+                    { type: "📱", title: "Media Interaktif", desc: "Slide PPT visual minimalis minim teks untuk presentasi materi." }
+                ]
+            },
+            2: {
+                title: "Siklus 2: Perkembangan Media Broadcasting dari Analog ke Digital",
+                konteks: "Mengajar di kelas XI Broadcasting dan Perfilman. Konteksnya berfokus pada transisi teknologi penyiaran di mana siswa perlu memahami peralihan sejarah dari sistem penyiaran analog ke penyiaran digital modern.",
+                tujuan: "Memfasilitasi murid agar mampu membandingkan perkembangan media broadcasting dari analog ke digital secara kritis dan komprehensif.",
+                kelebihan: "Siswa sangat antusias ketika membandingkan perangkat fisik analog (seperti pita kaset/VHS) dengan sistem transmisi digital berbasis cloud, didukung slide PPT yang minim teks dan kaya visual.",
+                kekurangan: "Keterbatasan perangkat fisik penyiaran analog di sekolah membuat demonstrasi beberapa alat sejarah harus dialihkan menggunakan simulasi video interaktif.",
+                
+                // Analisis Artefak (4 Aspek)
+                kendala: "Kendala yang terjadi secara keseluruhan adalah dalam penyusunan RPP, saya dan rekan se-bidang studi menyusun dari awal secara keseluruhan untuk setiap elemen yang diberikan oleh Guru pamong. Kami kesulitan dalam menentukan Tujuan Pembelajaran, menentukan materi pembelajaran, dan Alur Tujuan Pembelajaran, karena sesungguhnya Bidang Studi kami tidak ada di Sekolah yang mitra PPLT ini.",
+                teori: "Teori dan konsep yang saya gunakan cenderung pada Konstruktivisme ke Sosial. Karena Metode pembelajaran yang saya gunakan tergantung pada aktivitas pembelajaran berupa PBL (Problem Based Learning) atau PjBL (Project Based Learning).",
+                keberhasilan: "Faktor keberhasilan penerapan produk pembelajaran sepenuhnya berpacu pada pencapaian murid atas TP dari setiap RPP. Oleh karena itu, Pembuatan RPP yang Teratur secara aktivitas mampu membawa guru memberikan materi yang menyenangkan di kelas dan menciptakan rasa aman di kelas, sehingga murid bisa mencapai Tujuan dari setiap pembelajaran melalui asesmen formatif yang ditinjau.",
+                perubahan: "Perubahan yang signifikan hanya pada aktivitas pembelajaran yang berdasar pada Metode pembelajaran yang akan digunakan berangkat dari gaya belajar murid yang berbeda-beda pada setiap kelas. Cara menilai gaya belajar murid, budaya murid di dalam kelas secara individu memerlukan profiling di setiap kelas yang akan diajarkan.",
+                
+                // Bukti Fisik (Lengkap 4 berkas untuk Siklus 2)
+                files: [
+                    { type: "📄", title: "Modul Ajar / RPP", desc: "Modul Ajar Siklus 2: Perkembangan Media Analog ke Digital." },
+                    { type: "📸", title: "Dokumentasi Pembelajaran", desc: "Foto interaksi guru membimbing diskusi perbandingan media.", hasImage: true, placeholder: "https://placehold.co/400x250/D2A3A9/FAF7F5?text=Dokumentasi+Media+Siklus2" },
+                    { type: "📱", title: "Media Interaktif", desc: "Slide interaktif perbandingan frekuensi gelombang analog dan digital." },
+                    { type: "✍️", title: "Hasil Kerja Siswa", desc: "Tabel analisis komparatif perkembangan media analog-digital yang telah diberi catatan oleh guru." }
+                ]
+            },
+            3: {
+                title: "Siklus 3: Produksi Program Siaran (Talkshow TV/Podcast) Berdiferensiasi",
+                konteks: "Mengakomodasi keragaman bakat, minat, dan profil belajar siswa dalam satu tim besar produksi siaran televisi/podcast di kelas XI.",
+                tujuan: "Menerapkan simulasi alur kerja industri penyiaran nyata di mana setiap siswa memilih peran yang spesifik (Sutradara, Produser, Kamerawan, Host, atau Editor) sesuai profil belajarnya.",
+                kelebihan: "Tingkat keterlibatan siswa mencapai 100% karena mereka menempati posisi yang sesuai dengan minat dan potensi natural mereka.",
+                kekurangan: "Menuntut instrumen penilaian rubrik yang sangat detail dan objektif untuk mengevaluasi kontribusi setiap peran dalam satu karya kelompok besar.",
+                
+                // Analisis Artefak (4 Aspek)
+                kendala: "Mengonstruksi lembar asesmen kelompok dan performansi individu secara adil dari awal merupakan tantangan terberat karena keterbatasan model penilai standar di sekolah mitra.",
+                teori: "Pembelajaran Berdiferensiasi (Tomlinson) dan Teori Kecerdasan Majemuk (Gardner). Pembelajaran dirancang secara berpihak pada murid untuk mengekspresikan talenta penyiaran mereka secara optimal.",
+                keberhasilan: "Tercapainya TP pembuatan video siaran yang utuh dan bermakna. Kelas yang aman membuat seluruh kru (murid) percaya diri berekspresi di depan dan di belakang kamera.",
+                perubahan: "Melakukan penyesuaian peran kru secara berkala di kelas yang memiliki dominasi gaya belajar berbeda untuk menyeimbangkan dinamika kolaborasi kelompok.",
+                
+                // Bukti Fisik (Lengkap 4 berkas untuk Siklus 3)
+                files: [
+                    { type: "📄", title: "Modul Ajar / RPP", desc: "Modul Pembelajaran Diferensiasi Produksi Kreatif Broadcasting." },
+                    { type: "📸", title: "Dokumentasi Pembelajaran", desc: "Dokumentasi foto saat syuting program siaran di studio buatan.", hasImage: true, placeholder: "https://placehold.co/400x250/5B7065/FAF7F5?text=Dokumentasi+Syuting+Siklus3" },
+                    { type: "📱", title: "Media Interaktif", desc: "Virtual Studio Assets & Grafis Pendukung Siaran." },
+                    { type: "✍️", title: "Hasil Kerja Siswa", desc: "Produk akhir program siaran video talkshow dalam format digital." }
+                ]
+            }
+        };
+
+        function switchSiklus(n) {
+            const content = document.getElementById('siklus-content');
+            content.style.opacity = 0;
+            content.style.transform = "translateY(10px)";
+            
+            setTimeout(() => {
+                // Update Kategori Deskriptif & Refleksi 4 Aspek (a, b, c, d)
+                const current = siklusData[n];
+                document.getElementById('siklus-title').innerText = current.title;
+                document.getElementById('siklus-konteks').innerText = current.konteks;
+                document.getElementById('siklus-tujuan').innerText = current.tujuan;
+                document.getElementById('siklus-kelebihan').innerText = current.kelebihan;
+                document.getElementById('siklus-kekurangan').innerText = current.kekurangan;
+                
+                // Pengisian Aspek a, b, c, d
+                document.getElementById('refleksi-kendala').innerText = current.kendala;
+                document.getElementById('refleksi-teori').innerText = current.teori;
+                document.getElementById('refleksi-keberhasilan').innerText = current.keberhasilan;
+                document.getElementById('refleksi-perubahan').innerText = current.perubahan;
+                
+                // Render Ulang Bukti Fisik di Sisi Kanan secara Dinamis
+                const grid = document.getElementById('artefak-cards-grid');
+                grid.innerHTML = ''; // Kosongkan grid
+                
+                current.files.forEach(file => {
+                    const card = document.createElement('div');
+                    card.className = "bg-gray-50 rounded-2xl p-4 border border-gray-100 hover:shadow-md transition flex flex-col space-y-3";
+                    
+                    if (file.hasImage) {
+                        card.innerHTML = `
+                            <div class="flex items-center space-x-3 mb-1">
+                                <span class="text-2xl">${file.type}</span>
+                                <h5 class="font-bold text-sm text-gray-800">${file.title}</h5>
+                            </div>
+                            <div class="aspect-video w-full rounded-xl overflow-hidden border border-gray-200 bg-gray-100 relative shadow-sm">
+                                <img src="${file.placeholder}" alt="${file.title}" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 text-[9px] bg-black/60 text-white px-2 py-0.5 rounded-full">Pratinjau Gambar</span>
+                            </div>
+                            <p class="text-[10px] text-gray-500 leading-relaxed">${file.desc}</p>
+                        `;
+                    } else {
+                        card.innerHTML = `
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl pt-1">${file.type}</span>
+                                <div class="space-y-1">
+                                    <h5 class="font-bold text-sm text-gray-800">${file.title}</h5>
+                                    <p class="text-[11px] text-gray-500 leading-relaxed">${file.desc}</p>
+                                </div>
+                            </div>
+                            <div class="pt-2 border-t border-gray-100/60 mt-auto">
+                                <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Sedia untuk diunggah</span>
+                            </div>
+                        `;
+                    }
+                    grid.appendChild(card);
+                });
+                
+                // Update style tab aktif
+                [1,2,3].forEach(id => {
+                    const btn = document.getElementById(`tab-${id}`);
+                    btn.classList.remove('tab-active-btn', 'sage-bg', 'text-white');
+                    btn.classList.add('text-white');
+                });
+                document.getElementById(`tab-${n}`).classList.add('tab-active-btn', 'sage-bg', 'text-white');
+                
+                content.style.opacity = 1;
+                content.style.transform = "translateY(0)";
+            }, 300);
+        }
+
+        // Mobile Menu Logic (Bebas Alert)
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuContainer = document.getElementById('mobile-menu-container');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMenu() {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+            setTimeout(() => {
+                mobileMenu.classList.remove('opacity-0');
+                mobileMenu.classList.add('opacity-100');
+                mobileMenuContainer.classList.remove('scale-95');
+                mobileMenuContainer.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('opacity-100');
+            mobileMenu.classList.add('opacity-0');
+            mobileMenuContainer.classList.remove('scale-100');
+            mobileMenuContainer.classList.add('scale-95');
+            setTimeout(() => {
+                mobileMenu.classList.remove('flex');
+                mobileMenu.classList.add('hidden');
+            }, 300);
+        }
+
+        mobileMenuBtn.onclick = openMenu;
+        closeMenuBtn.onclick = closeMenu;
+        mobileLinks.forEach(link => {
+            link.onclick = closeMenu;
+        });
+
+        window.onload = function() {
+            switchSiklus(1);
+
+            // Bar Chart for Lembar Penilaian Scores (L7 & L8)
+            const scoreCtx = document.getElementById('scoreChart').getContext('2d');
+            new Chart(scoreCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Siklus 1', 'Siklus 2', 'Siklus 3'],
+                    datasets: [
+                        {
+                            label: 'L7 (Perangkat)',
+                            data: [78, 85, 93],
+                            backgroundColor: '#5B7065',
+                            borderRadius: 8
+                        },
+                        {
+                            label: 'L8 (Praktik)',
+                            data: [80, 87, 96],
+                            backgroundColor: '#D2A3A9',
+                            borderRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, grid: { display: false } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // Radar Chart for Target Kompetensi
+            const compCtx = document.getElementById('competencyChart').getContext('2d');
+            new Chart(compCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Pedagogik', 'Profesional', 'Kepribadian', 'Sosial'],
+                    datasets: [{
+                        label: 'Target Capaian',
+                        data: [90, 92, 95, 96],
+                        backgroundColor: 'rgba(210, 163, 169, 0.2)',
+                        borderColor: '#D2A3A9',
+                        pointBackgroundColor: '#5B7065'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        r: {
+                            angleLines: { display: false },
+                            suggestedMin: 50,
+                            suggestedMax: 100,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        };
+    </script>
+</body>
+</html>
