@@ -72,16 +72,28 @@
 <body class="overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
-        <div class="hidden md:flex space-x-8 font-medium text-sm uppercase tracking-widest">
-            <a href="#profil" class="nav-link">Profil</a>
-            <a href="#artefak" class="nav-link">Artefak</a>
-            <a href="#penilaian" class="nav-link">Penilaian</a>
-            <a href="#visi" class="nav-link">Visi</a>
-            <a href="#refleksi-akhir" class="nav-link">Refleksi</a> </div>
-        <button class="md:hidden text-2xl" id="mobile-menu-btn">☰</button>
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white/75 backdrop-blur-md border-b border-gray-100/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        
+        <a href="#profil" class="flex items-center space-x-2 group">
+            <span class="w-9 h-9 rounded-xl sage-bg flex items-center justify-center text-white font-bold text-sm tracking-wider shadow-sm group-hover:scale-105 transition duration-300">TN</span>
+            <span class="font-serif font-bold text-gray-800 text-sm tracking-wide group-hover:text-[#5B7065] transition duration-300">Portfolio.<span class="pink-text">S</span></span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-1 font-semibold text-xs uppercase tracking-widest">
+            <a href="#profil" class="px-4 py-2 rounded-xl text-gray-600 hover:text-[#5B7065] hover:bg-gray-50 transition duration-200">Profil</a>
+            <a href="#refleksi-akhir" class="px-4 py-2 rounded-xl text-gray-600 hover:text-[#5B7065] hover:bg-gray-50 transition duration-200">Refleksi</a>
+            <a href="#artefak" class="px-4 py-2 rounded-xl text-gray-600 hover:text-[#5B7065] hover:bg-gray-50 transition duration-200">Artefak</a>
+            <a href="#penilaian" class="px-4 py-2 rounded-xl text-gray-600 hover:text-[#D2A3A9] hover:bg-pink-50/30 transition duration-200">Penilaian</a>
+            <a href="#visi" class="ml-2 px-5 py-2.5 rounded-full bg-[#5B7065] text-white hover:bg-[#4A5C53] transition duration-300 shadow-sm lowercase first-letter:uppercase normal-case font-medium">Visi Saya</a>
         </div>
-    </nav>
+
+        <button class="md:hidden w-10 h-10 rounded-xl flex items-center justify-center bg-gray-50 border border-gray-200/60 text-gray-700 hover:bg-gray-100 transition" id="mobile-menu-btn">
+            <span class="text-xl">☰</span>
+        </button>
+
+    </div>
+</nav>
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center transition-all duration-300 opacity-0">
