@@ -678,12 +678,7 @@
                 
                 // Bukti Fisik yang Ditampilkan (Siklus 1 HANYA memiliki 3 berkas karena "Hasil Kerja Siswa" dihilangkan)
           files : [
-          {
-            type : "📄" , 
-            title : "Modul Ajar / RPP" , 
-            desc : "RPP Kecakapan Kerja Dasar / Basic Job Skills dalam Industri Broadcasting." , 
-            link : "https://drive.google.com/file/d/1So3f3Dvw27cQ6S7ax-Db6twSNevQVr3i/view?usp=sharing"
-          } , 
+          {type: "📄", title: "RPP Siklus 1", desc: "RPP Kecakapan Kerja Dasar dalam Industri Broadcasting", link: "https://drive.google.com/file/d/1So3f3Dvw27cQ6S7ax-Db6twSNevQVr3i/view?usp=drive_link" } , 
           { 
             type: "📸", 
             title: "Dokumentasi Pembelajaran", 
@@ -795,11 +790,11 @@
                             <div class="pt-2 border-t border-gray-100/60 mt-auto">
                                 <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Sedia untuk diunggah</span>
                             </div>
-                            <div class="card">
-                                <span class="status">klik untuk membuka Perangkat RPP/Modul Ajar Siklus 1.</span>
-                                <a href="https://drive.google.com/file/d/1So3f3Dvw27cQ6S7ax-Db6twSNevQVr3i/view?usp=drive_link" target="_blank" class="btn-drive">
+                          <div class="card">
+                            <a href="${file.link || '#'}" target="_blank" class="btn-drive">
+                               <span class="status">klik untuk membuka ${file.title}</span>
                             </a>
-                        </div>
+</div>
                         `;
                     }
                     grid.appendChild(card);
