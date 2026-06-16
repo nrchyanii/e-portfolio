@@ -43,15 +43,103 @@
         }
         .nav-link:hover::after { width: 100%; }
 
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+        .chart-container {position : relative ; width : 100 % ; max-width : 600 px ; margin-left : auto ; margin-right : auto ; height : 300 px ; max-height : 400 px ; }
+
+    /* Base Layout */
+    .portfolio-section {
+        max-width: 1000px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        padding: 20px;
+        margin: 0 auto;
+    }
+
+    /* Container Utama Gambar (Menggunakan Background Image) */
+    .portfolio-card {
+        position: relative;
+        width: 100%;
+        height: 450px; 
+        background-size: cover;
+        background-position: center;
+        border-radius: 20px; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    /* Kotak Deskripsi Putih Melayang */
+    .floating-box {
+        position: absolute;
+        top: 30px; 
+        left: 30px; 
+        width: 420px; 
+        background: rgba(255, 255, 255, 0.92); 
+        backdrop-filter: blur(5px); 
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Header di dalam Kotak (Icon + Judul) */
+    .box-header {
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+
+    .box-header .icon {
+        font-size: 2rem;
+    }
+
+    .box-header h2 {
+        font-size: 1.4rem;
+        color: #6b1d1d; 
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .box-header .sub-title {
+        font-size: 0.85rem;
+        color: #333;
+        line-height: 1.4;
+    }
+
+    /* Bagian Kutipan/Quote Kata-kata */
+    .quote {
+        font-size: 0.8rem;
+        font-style: italic;
+        color: #444;
+        line-height: 1.5;
+        border-top: 1px solid #e0e0e0;
+        padding-top: 12px;
+    }
+
+    .quote .author {
+        display: block;
+        margin-top: 6px;
+        font-style: normal;
+        font-weight: 600;
+        color: #666;
+    }
+
+    /* Responsive: Agar teks tidak kepotong di HP */
+    @media (max-width: 600px) {
+        .portfolio-card {
+            height: auto;
+            min-height: 500px;
         }
+        .floating-box {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            border-radius: 0;
+            background: rgba(255, 255, 255, 0.98);
+        }
+    }
+</style>
 
         .tab-active {
             border-bottom: 4px solid #5B7065;
@@ -262,7 +350,7 @@
         </div>
     </div>
 
-    <div class="portfolio-card" style="background-image: url('balla_lompoa.jpg');">
+    <div class="portfolio-card" style="background-image: url('balla lompoa.jpg');">
         <div class="floating-box">
             <div class="box-header">
                 <img src="icon-house.png" alt="Icon" class="icon">
